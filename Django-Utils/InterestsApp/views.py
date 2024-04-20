@@ -24,7 +24,9 @@ def api_view(request):
     response = asyncio.run(main())
     print(f'response: {response}')
     return render(request, 'api.html', {'response': response})
-
+  
+def result_view(request):
+    return render(request, 'result.html')
 
 # views.py in InterestsApp
 
