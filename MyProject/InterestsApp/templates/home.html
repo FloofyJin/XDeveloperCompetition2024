@@ -20,7 +20,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        h1 {
+        h1, p {
             color: #333;
         }
     </style>
@@ -28,8 +28,14 @@
 <body>
     <div class="container">
         <h1>InterestsApp: A tailored twitter recommendation solution for X Developer Challenge 2024</h1>
-        <p>This is the home page of my Django app. You can customize it as per your requirements.</p>
-        <p>Start building your awesome app now!</p>
+        
+        <!-- Search form -->
+        <form method="post">
+            {% csrf_token %}
+            <label for="search_query">Search:</label>
+            <input type="text" id="search_query" name="search_query" required>
+            <button type="submit">Search</button>
+        </form>
     </div>
 </body>
 </html>
