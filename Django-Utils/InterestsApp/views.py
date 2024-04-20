@@ -26,7 +26,7 @@ def api_view(request):
     return render(request, 'api.html', {'response': response})
   
 def result_view(request):
-    return render(request, 'result.html')
+    return render(request, 'result.html',{'response': "hello world"})
 
 # views.py in InterestsApp
 
