@@ -4,6 +4,9 @@ from django.shortcuts import render
 import asyncio
 import sys
 import xai_sdk
+import json
+
+from InterestsApp.searchUser import givetweet
 
 async def main():
     """Runs the example."""
@@ -26,7 +29,10 @@ def api_view(request):
     return render(request, 'api.html', {'response': response})
   
 def result_view(request):
-    return render(request, 'result.html',{'response': "hello world"})
+    usernames= ["elonmusk", "jinnacles"]
+    userTweets = asyncio.run(givetweet(usernames))
+    
+    return render(request, 'result.html', {'response': userTweets})
 
 # views.py in InterestsApp
 
