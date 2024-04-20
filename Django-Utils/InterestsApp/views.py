@@ -7,3 +7,6 @@ def home(request):
 
 def api_view(request):
     return render(request, 'api.html')
+
+def result_view(request):
+    return render(request, 'result.html')
