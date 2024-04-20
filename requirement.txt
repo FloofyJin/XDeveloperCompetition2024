@@ -1,0 +1,4 @@
+xai-sdk
+requests
+django
+pandas
