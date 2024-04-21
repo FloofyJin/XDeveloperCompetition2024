@@ -18,7 +18,20 @@
             color: #fff;
             padding: 20px 0;
             text-align: center;
+            animation: fadeInDown 1s ease;
         }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .container {
             max-width: 1000px; /* Increased max-width */
             margin: 50px auto;
@@ -26,19 +39,62 @@
             background-color: #fff; /* White background */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: slideInUp 1s ease;
         }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         h1, h2 {
             color: #333; /* Dark gray color for headings */
             text-align: center;
             margin-bottom: 20px;
+            animation: fadeIn 1s ease;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
         p, label {
             color: #555; /* Gray color for paragraphs and labels */
+            animation: fadeIn 1s ease;
         }
+
         form {
             text-align: center;
             margin-top: 20px;
+            animation: fadeInUp 1s ease;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        input[type="text"], button[type="submit"] {
+            animation: fadeIn 1s ease;
+        }
+
         input[type="text"] {
             padding: 10px;
             border: 1px solid #ccc; /* Light gray border */
@@ -46,6 +102,7 @@
             width: 70%; /* Increased width */
             margin-right: 10px;
         }
+
         button[type="submit"] {
             padding: 10px 20px;
             border: none;
@@ -56,6 +113,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         button[type="submit"]:hover {
             background-color: #0056b3; /* Darker shade on hover */
         }
