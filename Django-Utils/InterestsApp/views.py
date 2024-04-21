@@ -5,14 +5,26 @@ import json
 from InterestsApp.searchUser import givetweet
 import asyncio
 
+global_subtopics = {}
+
+
 def home(request):
     if request.method == 'POST':
         # Get the text input from the user
         search_query = request.POST.get('search_query', '')
         prompt = "Give me a comma separated list of 5 most important subtopics related to the main topic of " + search_query
         subtopics = asyncio.run(ask_grok(prompt))
-        print(search_query) # Topic
-        print(subtopics) # Grok given subtopics
+        print(search_query)  # Topic
+        print(subtopics)  # Grok given subtopics
+
+        # Split the subtopics string by newline character and parse out the numeric prefixes
+        subtopics_list = [subtopic.strip()[3:] for subtopic in subtopics.split('\n') if subtopic.strip()]
+
+        # Update the global_subtopics dictionary
+        global_subtopics.update({i + 1: subtopics_list[i] for i in range(len(subtopics_list))})
+
+        print(f'global_subtopics: {global_subtopics}')
+
         return redirect('choices', search_query=subtopics)
     return render(request, 'home.html')
 
