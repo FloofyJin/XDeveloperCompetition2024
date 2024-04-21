@@ -47,7 +47,6 @@ def api_view(request):
 def result_view(request):
     usernames= ["elonmusk", "jinnacles"]
     userTweets = asyncio.run(givetweet(usernames))
-    
     return render(request, 'result.html', {'response': userTweets})
 
 # views.py in InterestsApp
