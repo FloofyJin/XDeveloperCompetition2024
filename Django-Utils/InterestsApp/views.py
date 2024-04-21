@@ -48,7 +48,7 @@ def user_recommendation():
         formattedlist = ast.literal_eval(formattedres)
         print(formattedlist)
         print(type(formattedlist))
-        if formattedlist and type(formattedlist) != list and len(formattedlist) >0:
+        if formattedlist and type(formattedlist) != list:
             print("bad response: defaulting")
             return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
         return formattedlist
@@ -147,6 +147,7 @@ async def ask_grok(prompt):
 def result_view(request):
     usernames = user_recommendation()
     # usernames= ["elonmusk", "jinnacles", "CNBC"]
+    print(usernames)
     userTweets = asyncio.run(givetweet(usernames))
     if len(userTweets) == 0:
         userTweets = [('elonmusk', 'RT @teslaownersSV: Subscribe to 𝕏 premium and support free speech. https://t.co/99XbqesJ0V'), ('jinnacles', '2024 is the year I have no enemies'), ('PeterSchiff', 'RT @thesovereignman: The US government shattered its own quarterly debt record\nhttps://t.co/fwMNHxp0Y2'), ('RedDogT3', '$spx weekly chart with language.  If u can understand the active language.  The long term plans and read the chart.  \nUr well on ur way.  Nice work \nThere’s a ton going on here https://t.co/1VjSXDrUgB'), ('OptionsHawk', 'Yea $RSP was a good sign of this https://t.co/S8340LRdNV'), ('CNBC', 'Who should pay for the first date? Dating coaches and a couples therapist weigh in https://t.co/gVXeaJsXLs')]
