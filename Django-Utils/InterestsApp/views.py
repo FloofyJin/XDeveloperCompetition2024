@@ -28,8 +28,8 @@ def user_recommendation():
                  "It always responds politely but is not shy to use its vast knowledge in order to solve " \
                  "even the most difficult problems. The conversation begins." \
                  "Give me a comma separated python list of 5 most popular twitter handles/usernames related to the " \
-                 "contents " + " with a main focus on "+search_query+". Only output the 5 subtopics and nothing else." \
-                 "Human: I am interested in the topics: "
+                 "contents " + " with a main focus on "+search_query+". Only output the 5 subtopics and nothing else."
+        prompt = "Human: I am interested in the topics: "
         for k,v in global_responses.items():
             if v:
                 prompt += str(k) + ", "
