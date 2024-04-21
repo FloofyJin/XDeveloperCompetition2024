@@ -21,7 +21,7 @@ def user_recommendation():
     # hardcoded_subtopics = {'Risk management': True, 'Asset allocation': True, 'Diversification': False, 'Fundamental analysis': False, 'Technical analysis': False}
     if len(global_responses) == 0:
         print("no subtopic: defaulting")
-        return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+        return ["elonmusk", "Newsquawk", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
     else:
         prompt = "This is a conversation between a human user and a highly intelligent AI. " \
                  "The AI's name is Grok and it makes every effort to truthfully answer a user's questions. " \
@@ -43,14 +43,14 @@ def user_recommendation():
         first = res.find("[")
         last = res.find("]")
         if first < 0 or last < 0:
-            return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+            return ["elonmusk", "Newsquawk", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
         formattedres = res[first:last+1]
         formattedlist = ast.literal_eval(formattedres)
         print(formattedlist)
         print(type(formattedlist))
         if formattedlist and type(formattedlist) != list:
             print("bad response: defaulting")
-            return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+            return ["elonmusk", "Newsquawk", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
         return formattedlist
 
 def home(request):
@@ -150,7 +150,7 @@ def result_view(request):
     print(usernames)
     userTweets = asyncio.run(givetweet(usernames))
     if len(userTweets) == 0:
-        userTweets = [('elonmusk', 'RT @teslaownersSV: Subscribe to 𝕏 premium and support free speech. https://t.co/99XbqesJ0V'), ('jinnacles', '2024 is the year I have no enemies'), ('PeterSchiff', 'RT @thesovereignman: The US government shattered its own quarterly debt record\nhttps://t.co/fwMNHxp0Y2'), ('RedDogT3', '$spx weekly chart with language.  If u can understand the active language.  The long term plans and read the chart.  \nUr well on ur way.  Nice work \nThere’s a ton going on here https://t.co/1VjSXDrUgB'), ('OptionsHawk', 'Yea $RSP was a good sign of this https://t.co/S8340LRdNV'), ('CNBC', 'Who should pay for the first date? Dating coaches and a couples therapist weigh in https://t.co/gVXeaJsXLs')]
+        userTweets = [('elonmusk', 'RT @teslaownersSV: Subscribe to 𝕏 premium and support free speech. https://t.co/99XbqesJ0V'), ('Newsquawk', 'Navigating the markets can be tricky. Learn how to trade news events with Newsquawk and make informed decisions.'), ('PeterSchiff', 'RT @thesovereignman: The US government shattered its own quarterly debt record\nhttps://t.co/fwMNHxp0Y2'), ('RedDogT3', '$spx weekly chart with language.  If u can understand the active language.  The long term plans and read the chart.  \nUr well on ur way.  Nice work \nThere’s a ton going on here https://t.co/1VjSXDrUgB'), ('OptionsHawk', 'Yea $RSP was a good sign of this https://t.co/S8340LRdNV'), ('CNBC', 'Who should pay for the first date? Dating coaches and a couples therapist weigh in https://t.co/gVXeaJsXLs')]
     print(f'userTweets: {userTweets}')
     return render(request, 'result.html', {'response': userTweets})
 
