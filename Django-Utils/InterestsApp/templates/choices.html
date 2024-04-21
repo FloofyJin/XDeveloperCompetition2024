@@ -8,7 +8,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #111; /* Dark background color */
+            color: #ddd; /* Light text color */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -17,18 +18,18 @@
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #333; /* Dark container background color */
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
         }
         h1 {
-            color: #333;
+            color: #fff; /* White text color */
             text-align: center;
             font-size: 32px;
             margin-bottom: 30px;
         }
         p {
-            color: #555;
+            color: #ddd; /* Light text color */
             text-align: center;
             font-size: 20px;
             margin-bottom: 30px;
@@ -40,7 +41,7 @@
             display: block;
             margin-bottom: 15px;
             font-weight: bold;
-            color: #333;
+            color: #ddd; /* Light text color */
             font-size: 24px;
         }
         .option {
@@ -56,14 +57,14 @@
             cursor: pointer;
             padding: 12px 24px;
             border-radius: 5px;
-            border: 2px solid #ccc;
+            border: 2px solid #666; /* Darker border */
             transition: all 0.3s ease;
             font-size: 20px;
         }
         input[type="radio"]:checked + label {
-            background-color: #007bff;
-            color: #fff;
-            border-color: #007bff;
+            background-color: #161616; /* Blue color */
+            color: #fff; /* White text color */
+            border-color: #191919; /* Blue color */
         }
         input[type="submit"] {
             display: block;
@@ -72,14 +73,15 @@
             margin-top: 30px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #0c0c0c; /* Blue color */
+            color: #fff; /* White text color */
             font-size: 24px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #ededed; /* Darker blue color on hover */
+            color: #0c0c0c;
         }
     </style>
 </head>

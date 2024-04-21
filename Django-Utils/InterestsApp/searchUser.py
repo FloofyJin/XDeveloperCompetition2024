@@ -63,14 +63,15 @@ async def givetweet(usernames):
         # print(userId)
 
         user_id = userId
-        params = {"tweet.fields": "created_at", "max_results": 5, "tweet.fields": "created_at,public_metrics",}
+        params = {"tweet.fields": "created_at", "max_results": 5, "exclude": "replies"}
         url = "https://api.twitter.com/2/users/{}/tweets".format(user_id)
         json_response = connect_to_endpoint(url, headers, params)
         userTweets = json.dumps(json_response, indent=4, sort_keys=True)
         # print(userTweets)
         parsedTweet = json.loads(userTweets)
-        latestTweet = parsedTweet["data"][0]["text"]
-        res.append((name, latestTweet))
+        if parsedTweet and parsedTweet["data"] and parsedTweet["data"][0] and parsedTweet["data"][0]["text"]:
+            latestTweet = parsedTweet["data"][0]["text"]
+            res.append((name, latestTweet))
     
     return res
 
