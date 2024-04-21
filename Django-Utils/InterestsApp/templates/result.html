@@ -37,6 +37,13 @@
             border-radius: 8px;
             background-color: #f9f9f9;
             border-left: 4px solid #3498db;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .user-list-item.fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
         .username {
             font-size: 18px;
@@ -67,5 +74,17 @@
             {% endfor %}
         </ul>
     </div>
+
+    <script>
+        // JavaScript to add fade-in animation to list items
+        document.addEventListener("DOMContentLoaded", function() {
+            const items = document.querySelectorAll('.user-list-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('fade-in');
+                }, index * 100); // 100ms delay between each item
+            });
+        });
+    </script>
 </body>
 </html>
