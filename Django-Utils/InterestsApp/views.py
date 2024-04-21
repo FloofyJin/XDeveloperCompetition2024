@@ -17,12 +17,16 @@ def home(request):
         # Get the text input from the user
         search_query = request.POST.get('search_query', '')
         prompt = "Give me a comma separated list of 5 most important subtopics related to the main topic of " + search_query
+        print("Asking grok for subtopics...")
         subtopics = asyncio.run(ask_grok(prompt))
-        print(search_query)  # Topic
-        print(subtopics)  # Grok given subtopics
+        print("Topic: " + search_query)  # Topic
+        print("Subtopic: " + subtopics)  # Grok given subtopics
 
         # Split the subtopics string by newline character and parse out the numeric prefixes
         subtopics_list = [subtopic.strip()[3:] for subtopic in subtopics.split('\n') if subtopic.strip()]
+        if not subtopics_list or (len(subtopics_list) == 0):
+            print("GROK ERROR: no subtopics returned")
+            return render(request, 'home.html')
 
         # Update the global_subtopics list
         global_subtopics.clear()  # Clear the list before updating
