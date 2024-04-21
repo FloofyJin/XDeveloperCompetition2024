@@ -1,5 +1,6 @@
 import requests
 from django.shortcuts import render, redirect
+from django.urls import reverse
 import xai_sdk
 import json
 from InterestsApp.searchUser import givetweet
@@ -90,7 +91,7 @@ def choices(request, search_query):
 
         print("User responses:", user_responses)
 
-        return render(request, 'thank_you.html')
+        return redirect(reverse('result'))
 
     # If it's a GET request, render the choices.html template with subtopics
     return render(request, 'choices.html', {'search_query': search_query, 'subtopics': global_subtopics})

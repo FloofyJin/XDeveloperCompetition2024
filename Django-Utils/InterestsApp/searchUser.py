@@ -27,7 +27,8 @@ env = environ.Env()
 environ.Env.read_env()
 
 def auth():
-    return os.environ["AUTHORIZATION_TOKEN"]
+    return "AAAAAAAAAAAAAAAAAAAAAGqWtQEAAAAALiJtoGZUETocIS0KJlWQ0tA8pjA%3DnVnIQCcBDBl6YtckVG7l0ByZttfwZKBEXUHZlWPYJCtUkWU0fd"
+    #return os.environ["AUTHORIZATION_TOKEN"]
 
 def create_headers(bearer_token):
     headers = {"Authorization": "Bearer {}".format(bearer_token)}
