@@ -68,7 +68,6 @@ def home(request):
         print(f'type(global_subtopics): {type(global_subtopics)}')
         print(f'global_subtopics: {global_subtopics}')
 
-        # Call choices function here
         return redirect('choices', search_query=search_query)
     return render(request, 'home.html')
 
@@ -80,6 +79,7 @@ def choices(request, search_query):
         for subtopic in global_subtopics:
             # Get the user's response for each subtopic
             response = request.POST.get(subtopic, None)
+            print(f'type(resopnse): {type(response)}')
             if response is not None:
                 # Store the user's response in the dictionary
                 if response == 'Yes':
@@ -89,8 +89,6 @@ def choices(request, search_query):
 
         print("User responses:", user_responses)
 
-        # Here you can do further processing with user_responses, such as saving to a database
-        # Redirect the user to a different page or render a response
         return render(request, 'thank_you.html')
 
     # If it's a GET request, render the choices.html template with subtopics
