@@ -4,9 +4,26 @@ import xai_sdk
 import json
 from InterestsApp.searchUser import givetweet
 import asyncio
+import sys
 
 global_subtopics = {}
+global_responses = {}
 
+async def user_recommendation():
+    responses = {'Risk management': True, 'Asset allocation': True, 'Diversification': False, 'Fundamental analysis': False, 'Technical analysis': False}
+    interests = "I am interested in the topics: "
+    for k,v in responses.items():
+        if v:
+            interests += k + ", "
+    interests += ". can you list me 10 prominent users on X/twitter that is known for that particular topic. give me a response in format: [username1, username2, ...]"
+    client = xai_sdk.Client()
+    conversation = client.grok.create_conversation()
+    token_stream, _ = conversation.add_response(interests)
+    async for token in token_stream:
+        print(token, end="")
+        sys.stdout.flush()
+        print("\n")
+    return
 
 def home(request):
     if request.method == 'POST':
@@ -51,6 +68,7 @@ async def ask_grok(prompt):
     return response
   
 def result_view(request):
+    asyncio.run(ask_grok(user_recommendation()))
     usernames= ["elonmusk", "jinnacles"]
     userTweets = asyncio.run(givetweet(usernames))
     return render(request, 'result.html', {'response': userTweets})
