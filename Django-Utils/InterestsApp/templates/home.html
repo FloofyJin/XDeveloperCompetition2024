@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InterestsApp: A tailored twitter recommendation solution for X Developer Challenge 2024</title>
+    <title>InterestsApp: A tailored Twitter recommendation solution for X Developer Challenge 2024</title>
     <style>
         /* Add your CSS styles here */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
@@ -17,22 +17,52 @@
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        h1, p {
+        h1 {
             color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 60%;
+            margin-right: 10px;
+        }
+        button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>InterestsApp: A tailored twitter recommendation solution for X Developer Challenge 2024</h1>
+        <h1>InterestsApp: A tailored Twitter recommendation solution for X Developer Challenge 2024</h1>
         <!-- Search bar -->
         <form method="post">
             {% csrf_token %}
             <label for="search_query">Search:</label>
-            <input type="text" id="search_query" name="search_query" required>
+            <input type="text" id="search_query" name="search_query" placeholder="Enter your interests" required>
             <button type="submit">Search</button>
         </form>
     </div>
