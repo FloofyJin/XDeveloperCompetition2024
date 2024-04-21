@@ -24,20 +24,29 @@
         h1 {
             color: #333;
             text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
         }
         p {
             color: #555;
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 20px;
+            margin-bottom: 30px;
         }
         form {
-            text-align: left;
+            text-align: center;
         }
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-weight: bold;
             color: #333;
+            font-size: 24px;
+        }
+        .option {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 20px;
         }
         input[type="radio"] {
             display: none;
@@ -45,10 +54,11 @@
         input[type="radio"] + label {
             display: inline-block;
             cursor: pointer;
-            padding: 8px 16px;
+            padding: 12px 24px;
             border-radius: 5px;
             border: 2px solid #ccc;
             transition: all 0.3s ease;
+            font-size: 20px;
         }
         input[type="radio"]:checked + label {
             background-color: #007bff;
@@ -58,13 +68,13 @@
         input[type="submit"] {
             display: block;
             width: 100%;
-            padding: 10px;
-            margin-top: 20px;
+            padding: 14px;
+            margin-top: 30px;
             border: none;
             border-radius: 5px;
             background-color: #007bff;
             color: #fff;
-            font-size: 16px;
+            font-size: 24px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -76,15 +86,19 @@
 <body>
     <div class="container">
         <h1>Choices</h1>
-        <p>Choose Yes or No for each subtopic:</p>
+        <p>Interested in the topic?</p> <!-- Updated label text -->
         <form method="post">
             {% csrf_token %}
             {% for subtopic in subtopics %}
-                <label for="{{ subtopic }}">{{ subtopic }}</label><br>
-                <input type="radio" id="{{ subtopic }}_yes" name="{{ subtopic }}" value="Yes">
-                <label for="{{ subtopic }}_yes">Yes</label>
-                <input type="radio" id="{{ subtopic }}_no" name="{{ subtopic }}" value="No">
-                <label for="{{ subtopic }}_no">No</label><br>
+                <label for="{{ subtopic }}">{{ subtopic }}</label>
+                <span class="option">
+                    <input type="radio" id="{{ subtopic }}_yes" name="{{ subtopic }}" value="Yes">
+                    <label for="{{ subtopic }}_yes">Yes</label>
+                </span>
+                <span class="option">
+                    <input type="radio" id="{{ subtopic }}_no" name="{{ subtopic }}" value="No">
+                    <label for="{{ subtopic }}_no">No</label>
+                </span><br>
             {% endfor %}
             <input type="submit" value="Submit">
         </form>

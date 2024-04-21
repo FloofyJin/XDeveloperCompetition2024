@@ -9,55 +9,68 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f0f0;
+            color: #333; /* Dark gray text color */
             margin: 0;
             padding: 0;
         }
+        header {
+            background-color: #4c8bf5; /* Light blue */
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
         .container {
-            max-width: 800px;
+            max-width: 1000px; /* Increased max-width */
             margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #fff; /* White background */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #333;
+        h1, h2 {
+            color: #333; /* Dark gray color for headings */
             text-align: center;
             margin-bottom: 20px;
         }
+        p, label {
+            color: #555; /* Gray color for paragraphs and labels */
+        }
         form {
             text-align: center;
-        }
-        label {
-            font-weight: bold;
-            color: #555;
-            margin-right: 10px;
+            margin-top: 20px;
         }
         input[type="text"] {
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ccc; /* Light gray border */
             border-radius: 5px;
-            width: 60%;
+            width: 70%; /* Increased width */
             margin-right: 10px;
         }
         button[type="submit"] {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background-color: #4c8bf5; /* Light blue button */
             color: #fff;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
         button[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker shade on hover */
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Welcome to InterestsApp</h1> <!-- Changed text color to dark gray -->
+        <p>A tailored Twitter recommendation solution for X Developer Challenge 2024</p>
+    </header>
     <div class="container">
-        <h1>InterestsApp: A tailored Twitter recommendation solution for X Developer Challenge 2024</h1>
+        <div class="intro">
+            <h2>Discover Your Interests</h2>
+            <p>Enter your interests below to find tailored Twitter recommendations just for you.</p>
+        </div>
         <!-- Search bar -->
         <form method="post">
             {% csrf_token %}

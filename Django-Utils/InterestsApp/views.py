@@ -1,5 +1,6 @@
 import requests
 from django.shortcuts import render, redirect
+from django.urls import reverse
 import xai_sdk
 import json
 from InterestsApp.searchUser import givetweet
@@ -57,6 +58,7 @@ def home(request):
 
         # Remove empty strings from the list
         subtopics_list = [subtopic for subtopic in subtopics_list if subtopic]
+        subtopics_list = [subtopic.capitalize() for subtopic in subtopics_list]
 
         if not subtopics_list or (len(subtopics_list) == 0):
             print("GROK ERROR: no subtopics returned")
@@ -72,7 +74,6 @@ def home(request):
         print(f'type(global_subtopics): {type(global_subtopics)}')
         print(f'global_subtopics: {global_subtopics}')
 
-        # Call choices function here
         return redirect('choices', search_query=search_query)
     return render(request, 'home.html')
 
@@ -84,6 +85,7 @@ def choices(request, search_query):
         for subtopic in global_subtopics:
             # Get the user's response for each subtopic
             response = request.POST.get(subtopic, None)
+            print(f'type(resopnse): {type(response)}')
             if response is not None:
                 # Store the user's response in the dictionary
                 if response == 'Yes':
@@ -93,7 +95,7 @@ def choices(request, search_query):
 
         print("User responses:", user_responses)
 
-        return render(request, 'thank_you.html')
+        return redirect(reverse('result'))
 
     # If it's a GET request, render the choices.html template with subtopics
     return render(request, 'choices.html', {'search_query': search_query, 'subtopics': global_subtopics})
