@@ -1,15 +1,50 @@
-<!-- api.html -->
-
+<!-- result.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Page</title>
+    <title>Twitter User List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .user-list-item {
+            margin-bottom: 10px;
+        }
+        .username {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+        .username:hover {
+            text-decoration: underline;
+        }
+        .description {
+            margin-left: 10px;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the API Page!</h1>
-    <p>This is the RESULT page of my Django app.</p>
-    <p>{{ response }}</p>
+    <div class="container">
+        <h1>Twitter User List</h1>
+        <ul>
+            {% for user, description in userTweets %}
+            <li class="user-list-item">
+                <a href="https://twitter.com/{{ user }}" class="username" target="_blank">{{ user }}</a>
+                <span class="description">{{ description }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

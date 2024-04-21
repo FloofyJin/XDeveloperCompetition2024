@@ -12,21 +12,25 @@ import asyncio
 global_subtopics = []
 global_responses = {}
 
-# async def user_recommendation():
-#     responses = {'Risk management': True, 'Asset allocation': True, 'Diversification': False, 'Fundamental analysis': False, 'Technical analysis': False}
-#     interests = "I am interested in the topics: "
-#     for k,v in responses.items():
-#         if v:
-#             interests += k + ", "
-#     interests += ". can you list me 10 prominent users on X/twitter that is known for that particular topic. give me a response in format: [username1, username2, ...]"
-#     client = xai_sdk.Client()
-#     conversation = client.grok.create_conversation()
-#     token_stream, _ = conversation.add_response(interests)
-#     async for token in token_stream:
-#         print(token, end="")
-#         sys.stdout.flush()
-#         print("\n")
-#     return
+def user_recommendation():
+    print("finding user recommendation")
+    hardcoded_subtopics = {'Risk management': True, 'Asset allocation': True, 'Diversification': False, 'Fundamental analysis': False, 'Technical analysis': False}
+    if len(global_subtopics) == 0:
+        print("no subtopic: defaulting")
+        return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+    else:
+        interests = "Human: I am interested in the topics: "
+        for k,v in hardcoded_subtopics.items():
+            if v:
+                interests += str(k) + ", "
+        interests += ". can you list me 10 prominent users on X/twitter that is known for that particular topic. give me a response in format: [username1, username2, ...]. Only give "
+        
+        res = asyncio.run(ask_grok(interests))
+
+        if type(res) != list:
+            print("bad response: defaulting")
+            return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+        return res
 
 def home(request):
     """
@@ -89,8 +93,6 @@ def choices(request, search_query):
 
         print("User responses:", user_responses)
 
-        # Here you can do further processing with user_responses, such as saving to a database
-        # Redirect the user to a different page or render a response
         return render(request, 'thank_you.html')
 
     # If it's a GET request, render the choices.html template with subtopics
@@ -117,8 +119,9 @@ async def ask_grok(prompt):
     return response
   
 def result_view(request):
-    # asyncio.run(ask_grok(user_recommendation()))
-    usernames= ["elonmusk", "jinnacles"]
+    usernames = user_recommendation()
+    # print(usernames)
+    # usernames= ["elonmusk", "jinnacles", "CNBC"]
     userTweets = asyncio.run(givetweet(usernames))
     return render(request, 'result.html', {'response': userTweets})
 
