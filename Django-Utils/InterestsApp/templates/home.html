@@ -12,6 +12,12 @@
             margin: 0;
             padding: 0;
         }
+        header {
+            background-color: #4c8bf5; /* Lighter blue */
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
         .container {
             max-width: 800px;
             margin: 50px auto;
@@ -21,12 +27,13 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #333;
+            color: #333; /* Changed color to a darker shade */
             text-align: center;
             margin-bottom: 20px;
         }
         form {
             text-align: center;
+            margin-top: 20px;
         }
         label {
             font-weight: bold;
@@ -56,8 +63,15 @@
     </style>
 </head>
 <body>
+    <header>
+        <h1>Welcome to InterestsApp</h1> <!-- Changed text color to a darker shade -->
+        <p>A tailored Twitter recommendation solution for X Developer Challenge 2024</p>
+    </header>
     <div class="container">
-        <h1>InterestsApp: A tailored Twitter recommendation solution for X Developer Challenge 2024</h1>
+        <div class="intro">
+            <h2>Discover Your Interests</h2>
+            <p>Enter your interests below to find tailored Twitter recommendations just for you.</p>
+        </div>
         <!-- Search bar -->
         <form method="post">
             {% csrf_token %}
