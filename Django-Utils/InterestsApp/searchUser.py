@@ -56,6 +56,7 @@ async def givetweet(usernames):
         bearer_token = auth()
         headers = create_headers(bearer_token)
         response = requests.request("GET", url, headers = headers)
+        print("Twitter User API response: " + str(response))
         # print("Endpoint Response Code: " + str(response.status_code))
         if response.status_code != 200:
             raise Exception(response.status_code, response.text)
@@ -67,11 +68,15 @@ async def givetweet(usernames):
         url = "https://api.twitter.com/2/users/{}/tweets".format(user_id)
         json_response = connect_to_endpoint(url, headers, params)
         userTweets = json.dumps(json_response, indent=4, sort_keys=True)
-        # print(userTweets)
+        print("userTweets: " + userTweets)
         parsedTweet = json.loads(userTweets)
-        if parsedTweet and parsedTweet["data"] and parsedTweet["data"][0] and parsedTweet["data"][0]["text"]:
-            latestTweet = parsedTweet["data"][0]["text"]
-            res.append((name, latestTweet))
+        try:
+            if parsedTweet and parsedTweet["data"] and parsedTweet["data"][0] and parsedTweet["data"][0]["text"]:
+                latestTweet = parsedTweet["data"][0]["text"]
+                res.append((name, latestTweet))
+        except Exception as e:
+            print(f"parsedTweet error: {e}")
+            return []
     
     return res
 
