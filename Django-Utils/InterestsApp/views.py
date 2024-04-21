@@ -38,12 +38,19 @@ def user_recommendation():
                   "Format the response: [\"username1\", \"username2\", ...]"
         
         res = asyncio.run(ask_grok(prompt))
+        first = res.find("[")
+        last = res.find("]")
+        if first < 0 or last < 0:
+            return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
         print(res)
-        if type(res) != list:
+        formattedres = res[first:last+1]
+        formattedlist = ast.literal_eval(formattedres)
+        print(formattedlist)
+        print(type(formattedlist))
+        if formattedlist and type(formattedlist) != list:
             print("bad response: defaulting")
             return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
-            # return 
-        return ast.literal_eval(res)
+        return formattedlist
 
 def home(request):
     """
