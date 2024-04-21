@@ -1,6 +1,8 @@
 import requests
 from django.shortcuts import render, redirect
 import xai_sdk
+import json
+from InterestsApp.searchUser import givetweet
 import asyncio
 
 def home(request):
@@ -36,12 +38,24 @@ async def ask_grok(prompt):
             break
     return response
 
-'''
+
 def api_view(request):
     response = asyncio.run(main())
     print(f'response: {response}')
     return render(request, 'api.html', {'response': response})
   
 def result_view(request):
+    usernames= ["elonmusk", "jinnacles"]
+    userTweets = asyncio.run(givetweet(usernames))
+    
+    return render(request, 'result.html', {'response': userTweets})
+
+# views.py in InterestsApp
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
+
     return render(request, 'result.html')
-'''
+
