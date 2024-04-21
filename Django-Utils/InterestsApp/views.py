@@ -48,7 +48,7 @@ def user_recommendation():
         formattedlist = ast.literal_eval(formattedres)
         print(formattedlist)
         print(type(formattedlist))
-        if formattedlist and type(formattedlist) != list and len(formattedlist) >0:
+        if formattedlist and type(formattedlist) != list:
             print("bad response: defaulting")
             return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
         return formattedlist
@@ -147,6 +147,7 @@ async def ask_grok(prompt):
 def result_view(request):
     usernames = user_recommendation()
     # usernames= ["elonmusk", "jinnacles", "CNBC"]
+    print(usernames)
     userTweets = asyncio.run(givetweet(usernames))
     print(f'userTweets: {userTweets}')
     return render(request, 'result.html', {'response': userTweets})
