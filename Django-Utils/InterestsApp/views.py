@@ -5,10 +5,14 @@ import json
 from InterestsApp.searchUser import givetweet
 import asyncio
 
-global_subtopics = {}
+global_subtopics = []
 
 
 def home(request):
+    """
+    Home page of the website.
+    Takes a topic from the user and queries Grok to find 5 subtopics related to the topic
+    """
     if request.method == 'POST':
         # Get the text input from the user
         search_query = request.POST.get('search_query', '')
@@ -20,16 +24,19 @@ def home(request):
         # Split the subtopics string by newline character and parse out the numeric prefixes
         subtopics_list = [subtopic.strip()[3:] for subtopic in subtopics.split('\n') if subtopic.strip()]
 
-        # Update the global_subtopics dictionary
-        global_subtopics.update({i + 1: subtopics_list[i] for i in range(len(subtopics_list))})
+        # Update the global_subtopics list
+        global_subtopics.clear()  # Clear the list before updating
+        global_subtopics.extend(subtopics_list)
 
         print(f'global_subtopics: {global_subtopics}')
 
-        return redirect('choices', search_query=subtopics)
+        return redirect('choices', search_query=subtopics_list)
     return render(request, 'home.html')
+
 
 def choices(request, search_query):
     return render(request, 'choices.html', {'search_query': search_query})
+
 
 async def ask_grok(prompt):
     """Runs the example."""
@@ -49,9 +56,10 @@ async def ask_grok(prompt):
         if count > 500:
             break
     return response
-  
-def result_view(request):
-    usernames= ["elonmusk", "jinnacles"]
-    userTweets = asyncio.run(givetweet(usernames))
-    return render(request, 'result.html', {'response': userTweets})
 
+
+def result_view(request):
+    usernames = ["elonmusk", "jinnacles"]
+    userTweets = asyncio.run(givetweet(usernames))
+
+    return render(request, 'result.html', {'response': userTweets})
