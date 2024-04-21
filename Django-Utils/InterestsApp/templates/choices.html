@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InterestsApp: A tailored twitter recommendation solution for X Developer Challenge 2024</title>
+    <title>Search Result</title>
     <style>
         /* Add your CSS styles here */
         body {
@@ -27,15 +27,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>InterestsApp: A tailored twitter recommendation solution for X Developer Challenge 2024</h1>
+        <h1>Rate the following subtopics:</h1>
         
-        <!-- Search form -->
-        <form method="post">
-            {% csrf_token %}
-            <label for="search_query">Search:</label>
-            <input type="text" id="search_query" name="search_query" required>
-            <button type="submit">Search</button>
-        </form>
+        <!-- Display search query -->
+        <p>Related subtopics: <strong>{{ search_query }}</strong></p>
+        
+        <p><a href="{% url 'home' %}">Back to Home</a></p>
     </div>
 </body>
 </html>

@@ -35,3 +35,13 @@ async def ask_grok(prompt):
         if count > 500:
             break
     return response
+
+'''
+def api_view(request):
+    response = asyncio.run(main())
+    print(f'response: {response}')
+    return render(request, 'api.html', {'response': response})
+  
+def result_view(request):
+    return render(request, 'result.html')
+'''
