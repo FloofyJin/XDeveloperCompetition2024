@@ -69,8 +69,9 @@ async def givetweet(usernames):
         userTweets = json.dumps(json_response, indent=4, sort_keys=True)
         # print(userTweets)
         parsedTweet = json.loads(userTweets)
-        latestTweet = parsedTweet["data"][0]["text"]
-        res.append((name, latestTweet))
+        if parsedTweet and parsedTweet["data"] and parsedTweet["data"][0] and parsedTweet["data"][0]["text"]:
+            latestTweet = parsedTweet["data"][0]["text"]
+            res.append((name, latestTweet))
     
     return res
 

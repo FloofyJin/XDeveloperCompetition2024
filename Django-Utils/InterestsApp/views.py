@@ -14,6 +14,7 @@ import ast
 
 global_subtopics = []
 global_responses = {}
+search_query = ""
 
 def user_recommendation():
     print("finding user recommendation")
@@ -27,7 +28,7 @@ def user_recommendation():
                  "It always responds politely but is not shy to use its vast knowledge in order to solve " \
                  "even the most difficult problems. The conversation begins." \
                  "Give me a comma separated python list of 5 most popular twitter handles/usernames related to the " \
-                 "contents " + ". Only output the 5 subtopics and nothing else."
+                 "contents " + " with a main focus on "+search_query+". Only output the 5 subtopics and nothing else."
         prompt = "Human: I am interested in the topics: "
         for k,v in global_responses.items():
             if v:
@@ -38,16 +39,16 @@ def user_recommendation():
                   "Format the response: [\"username1\", \"username2\", ...]"
         
         res = asyncio.run(ask_grok(prompt))
+        print(res)
         first = res.find("[")
         last = res.find("]")
         if first < 0 or last < 0:
             return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
-        print(res)
         formattedres = res[first:last+1]
         formattedlist = ast.literal_eval(formattedres)
         print(formattedlist)
         print(type(formattedlist))
-        if formattedlist and type(formattedlist) != list:
+        if formattedlist and type(formattedlist) != list and len(formattedlist) >0:
             print("bad response: defaulting")
             return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
         return formattedlist
@@ -145,7 +146,6 @@ async def ask_grok(prompt):
   
 def result_view(request):
     usernames = user_recommendation()
-    # print(usernames)
     # usernames= ["elonmusk", "jinnacles", "CNBC"]
     userTweets = asyncio.run(givetweet(usernames))
     print(f'userTweets: {userTweets}')
