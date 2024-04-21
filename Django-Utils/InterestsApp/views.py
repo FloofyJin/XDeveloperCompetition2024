@@ -77,15 +77,16 @@ def home(request):
         return redirect('choices', search_query=search_query)
     return render(request, 'home.html')
 
-
 def choices(request, search_query):
+    global global_responses  # Access the global_responses variable
+
     if request.method == 'POST':
         # Handle form submission
         user_responses = {}
         for subtopic in global_subtopics:
             # Get the user's response for each subtopic
             response = request.POST.get(subtopic, None)
-            print(f'type(resopnse): {type(response)}')
+            print(f'type(response): {type(response)}')
             if response is not None:
                 # Store the user's response in the dictionary
                 if response == 'Yes':
@@ -94,6 +95,9 @@ def choices(request, search_query):
                     user_responses[subtopic] = False
 
         print("User responses:", user_responses)
+
+        # Assign user_responses to global_responses
+        global_responses = user_responses
 
         return redirect(reverse('result'))
 
@@ -125,5 +129,6 @@ def result_view(request):
     # print(usernames)
     # usernames= ["elonmusk", "jinnacles", "CNBC"]
     userTweets = asyncio.run(givetweet(usernames))
+    print(f'userTweets: {userTweets}')
     return render(request, 'result.html', {'response': userTweets})
 
