@@ -59,30 +59,12 @@
     <div class="container">
         <h1>Recommended users to follow based on your interests:</h1>
         <ul>
+            {% for user, description in response %}
             <li class="user-list-item">
-                <a href="https://twitter.com/elonmusk" class="username" target="_blank">elonmusk</a>
-                <p class="description">@cb_doge Lot of work to achieve that, but yes</p>
+                <a href="https://twitter.com/{{user}}" class="username" target="_blank">{{user}}</a>
+                <p class="description">{{description}}</p>
             </li>
-            <li class="user-list-item">
-                <a href="https://twitter.com/jinnacles" class="username" target="_blank">jinnacles</a>
-                <p class="description">@elonmusk @elonmusk Where you at homie. We out here coding in fleXo. Come thru! <a href="https://t.co/TM6vA4Mqi4" target="_blank">https://t.co/TM6vA4Mqi4</a></p>
-            </li>
-            <li class="user-list-item">
-                <a href="https://twitter.com/PeterSchiff" class="username" target="_blank">PeterSchiff</a>
-                <p class="description">RT @thesovereignman: The US government shattered its own quarterly debt record <a href="https://t.co/fwMNHxp0Y2" target="_blank">https://t.co/fwMNHxp0Y2</a></p>
-            </li>
-            <li class="user-list-item">
-                <a href="https://twitter.com/RedDogT3" class="username" target="_blank">RedDogT3</a>
-                <p class="description">@wolfy_1 Ha!</p>
-            </li>
-            <li class="user-list-item">
-                <a href="https://twitter.com/OptionsHawk" class="username" target="_blank">OptionsHawk</a>
-                <p class="description">B’s just railing the Leafs A playoff story as old as time</p>
-            </li>
-            <li class="user-list-item">
-                <a href="https://twitter.com/CNBC" class="username" target="_blank">CNBC</a>
-                <p class="description">Asian American and Pacific Islander women face a $267,760 lifetime salary shortfall due to the pay gap <a href="https://t.co/qXr7tLP4g9" target="_blank">https://t.co/qXr7tLP4g9</a></p>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 </body>

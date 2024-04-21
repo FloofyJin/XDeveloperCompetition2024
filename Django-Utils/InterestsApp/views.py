@@ -9,6 +9,8 @@ import sys
 from django.shortcuts import render, redirect
 import xai_sdk
 import asyncio
+import ast
+
 
 global_subtopics = []
 global_responses = {}
@@ -20,18 +22,28 @@ def user_recommendation():
         print("no subtopic: defaulting")
         return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
     else:
-        interests = "Human: I am interested in the topics: "
+        prompt = "This is a conversation between a human user and a highly intelligent AI. " \
+                 "The AI's name is Grok and it makes every effort to truthfully answer a user's questions. " \
+                 "It always responds politely but is not shy to use its vast knowledge in order to solve " \
+                 "even the most difficult problems. The conversation begins." \
+                 "Give me a comma separated python list of 5 most popular twitter handles/usernames related to the " \
+                 "contents " + ". Only output the 5 subtopics and nothing else."
+        prompt = "Human: I am interested in the topics: "
         for k,v in global_responses.items():
             if v:
-                interests += str(k) + ", "
-        interests += ". can you list me 10 prominent users on X/twitter that is known for that particular topic. give me a response in format: [username1, username2, ...]. Only give "
+                prompt += str(k) + ", "
+        prompt += ". Only output the 10 usernames and nothing else." \
+                  "Also do not number order the output. Do not tell me anything outside of just the list." \
+                  "Can you also put quotes around user username. Do not include @ symbol in front of the username either." \
+                  "Format the response: [\"username1\", \"username2\", ...]"
         
-        res = asyncio.run(ask_grok(interests))
-
+        res = asyncio.run(ask_grok(prompt))
+        print(res)
         if type(res) != list:
             print("bad response: defaulting")
             return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
-        return res
+            # return 
+        return ast.literal_eval(res)
 
 def home(request):
     """
