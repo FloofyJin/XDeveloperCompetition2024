@@ -50,6 +50,7 @@
             font-weight: bold;
             color: #3498db;
             text-decoration: none;
+            vertical-align: middle;
         }
         .username:hover {
             text-decoration: underline;
@@ -60,6 +61,17 @@
             font-size: 16px;
             line-height: 1.5;
         }
+        .twitter-follow-button {
+            padding: 1px 1px;
+            border-radius: 1px;
+            background-color: #ffffff;
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-block; /* Display inline */
+            vertical-align: middle; /* Align vertically */
+            transition: background-color 0.3s ease;
+            margin-left: 3px; /* Add some margin to separate the buttons */
+        }
     </style>
 </head>
 <body>
@@ -69,6 +81,7 @@
             {% for user, description in response %}
             <li class="user-list-item">
                 <a href="https://twitter.com/{{user}}" class="username" target="_blank">{{user}}</a>
+                <a href="https://twitter.com/{{user}}" class="twitter-follow-button" data-size="large" data-show-screen-name="false" data-show-count="false"></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 <p class="description">{{description}}</p>
             </li>
             {% endfor %}
