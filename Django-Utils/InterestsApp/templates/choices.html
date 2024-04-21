@@ -16,7 +16,7 @@
         .container {
             max-width: 600px;
             margin: 50px auto;
-            padding: 30px;
+            padding: 20px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -86,7 +86,7 @@
 <body>
     <div class="container">
         <h1>Choices</h1>
-        <p>Choose Yes or No for each subtopic:</p>
+        <p>Interested in the topic?</p> <!-- Updated label text -->
         <form method="post">
             {% csrf_token %}
             {% for subtopic in subtopics %}
