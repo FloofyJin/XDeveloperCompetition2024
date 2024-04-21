@@ -25,8 +25,12 @@ def home(request):
         print("Topic: " + search_query)  # Topic
         print("Subtopic: " + subtopics)  # Grok given subtopics
 
-        # Split the subtopics string by newline character and parse out the numeric prefixes
-        subtopics_list = [subtopic.strip()[3:] for subtopic in subtopics.split('\n') if subtopic.strip()]
+        # Split the subtopics string by comma and strip whitespace from each subtopic
+        subtopics_list = [subtopic.strip() for subtopic in subtopics.split(',')]
+
+        # Remove empty strings from the list
+        subtopics_list = [subtopic for subtopic in subtopics_list if subtopic]
+
         if not subtopics_list or (len(subtopics_list) == 0):
             print("GROK ERROR: no subtopics returned")
             # return render(request, 'home.html')
@@ -52,9 +56,13 @@ def choices(request, search_query):
         for subtopic in global_subtopics:
             # Get the user's response for each subtopic
             response = request.POST.get(subtopic, None)
+            print(f'type(resopnse): {type(response)}')
             if response is not None:
                 # Store the user's response in the dictionary
-                user_responses[subtopic] = response
+                if response == 'Yes':
+                    user_responses[subtopic] = True
+                else:
+                    user_responses[subtopic] = False
 
         print("User responses:", user_responses)
 
