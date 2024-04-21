@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Result</title>
+    <title>Rate Subtopics</title>
     <style>
         /* Add your CSS styles here */
         body {
@@ -23,15 +23,34 @@
         h1, p {
             color: #333;
         }
+        .subtopic {
+            margin-bottom: 10px;
+        }
+        .response-btn {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Rate the following subtopics:</h1>
-        
+
         <!-- Display search query -->
         <p>Related subtopics: <strong>{{ search_query }}</strong></p>
-        
+
+        <!-- Render subtopics with buttons -->
+        <form method="post">
+            {% csrf_token %}
+            {% for subtopic in subtopics %}
+            <div class="subtopic">
+                <span>{{ subtopic }}</span>
+                <button type="submit" class="response-btn" name="{{ subtopic }}" value="Yes">Yes</button>
+                <button type="submit" class="response-btn" name="{{ subtopic }}" value="No">No</button>
+            </div>
+            {% endfor %}
+        </form>
+
+        <!-- Back to Home link -->
         <p><a href="{% url 'home' %}">Back to Home</a></p>
     </div>
 </body>
