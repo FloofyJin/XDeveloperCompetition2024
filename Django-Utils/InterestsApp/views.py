@@ -53,6 +53,7 @@ def home(request):
 
         # Remove empty strings from the list
         subtopics_list = [subtopic for subtopic in subtopics_list if subtopic]
+        subtopics_list = [subtopic.capitalize() for subtopic in subtopics_list]
 
         if not subtopics_list or (len(subtopics_list) == 0):
             print("GROK ERROR: no subtopics returned")
