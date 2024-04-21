@@ -1,15 +1,84 @@
-<!-- api.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Page</title>
+    <title>Twitter User List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .user-list-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            border-left: 4px solid rgb(0, 0, 0);
+        }
+        .username {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+            vertical-align: middle;
+        }
+        .username:hover {
+            text-decoration: underline;
+        }
+        .description { 
+            margin-top: 10px;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .twitter-follow-button {
+            padding: 1px 1px;
+            border-radius: 1px;
+            background-color: #ffffff;
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-block; /* Display inline */
+            vertical-align: middle; /* Align vertically */
+            transition: background-color 0.3s ease;
+            margin-left: 3px; /* Add some margin to separate the buttons */
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the API Page!</h1>
-    <p>This is the RESULT page of my Django app.</p>
-    <p>{{ response }}</p>
+    <div class="container">
+        <h1>Recommended users to follow based on your interests:</h1>
+        <ul>
+            {% for user, description in response %}
+            <li class="user-list-item">
+                <a href="https://twitter.com/{{user}}" class="username" target="_blank">{{user}}</a>
+                <a href="https://twitter.com/{{user}}" class="twitter-follow-button" data-size="large" data-show-screen-name="false" data-show-count="false"></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <p class="description">{{description}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

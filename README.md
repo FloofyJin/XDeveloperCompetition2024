@@ -1,1 +1,4 @@
 # XDeveloperCompetition2024
+
+export XAI_API_KEY=Eh97MbeIZ4p4UjhF4D8JVyTRAZm7oErMkdePDVi1jWzNYWPq47XPUFWgqcBd0Ysa7bfaAwrHZCVxK+pzGSVBaXUvHmKzZ8F34vsqwtDpI3hKBCf3rhIz/Obwir0obKZ9PQ
+python manage.py runserver

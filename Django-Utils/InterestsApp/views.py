@@ -9,25 +9,49 @@ import sys
 from django.shortcuts import render, redirect
 import xai_sdk
 import asyncio
+import ast
+
 
 global_subtopics = []
 global_responses = {}
+search_query = ""
 
-# async def user_recommendation():
-#     responses = {'Risk management': True, 'Asset allocation': True, 'Diversification': False, 'Fundamental analysis': False, 'Technical analysis': False}
-#     interests = "I am interested in the topics: "
-#     for k,v in responses.items():
-#         if v:
-#             interests += k + ", "
-#     interests += ". can you list me 10 prominent users on X/twitter that is known for that particular topic. give me a response in format: [username1, username2, ...]"
-#     client = xai_sdk.Client()
-#     conversation = client.grok.create_conversation()
-#     token_stream, _ = conversation.add_response(interests)
-#     async for token in token_stream:
-#         print(token, end="")
-#         sys.stdout.flush()
-#         print("\n")
-#     return
+def user_recommendation():
+    print("finding user recommendation")
+    # hardcoded_subtopics = {'Risk management': True, 'Asset allocation': True, 'Diversification': False, 'Fundamental analysis': False, 'Technical analysis': False}
+    if len(global_responses) == 0:
+        print("no subtopic: defaulting")
+        return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+    else:
+        prompt = "This is a conversation between a human user and a highly intelligent AI. " \
+                 "The AI's name is Grok and it makes every effort to truthfully answer a user's questions. " \
+                 "It always responds politely but is not shy to use its vast knowledge in order to solve " \
+                 "even the most difficult problems. The conversation begins." \
+                 "Give me a comma separated python list of 5 most popular twitter handles/usernames related to the " \
+                 "contents " + " with a main focus on "+search_query+". Only output the 5 subtopics and nothing else."
+        prompt = "Human: I am interested in the topics: "
+        for k,v in global_responses.items():
+            if v:
+                prompt += str(k) + ", "
+        prompt += ". Only output the 10 usernames and nothing else." \
+                  "Also do not number order the output. Do not tell me anything outside of just the list." \
+                  "Can you also put quotes around user username. Do not include @ symbol in front of the username either." \
+                  "Format the response: [\"username1\", \"username2\", ...]"
+        
+        res = asyncio.run(ask_grok(prompt))
+        print(res)
+        first = res.find("[")
+        last = res.find("]")
+        if first < 0 or last < 0:
+            return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+        formattedres = res[first:last+1]
+        formattedlist = ast.literal_eval(formattedres)
+        print(formattedlist)
+        print(type(formattedlist))
+        if formattedlist and type(formattedlist) != list and len(formattedlist) >0:
+            print("bad response: defaulting")
+            return ["elonmusk", "jinnacles", "PeterSchiff", "RedDogT3", "OptionsHawk", "CNBC"]
+        return formattedlist
 
 def home(request):
     """
@@ -73,15 +97,16 @@ def home(request):
         return redirect('choices', search_query=search_query)
     return render(request, 'home.html')
 
-
 def choices(request, search_query):
+    global global_responses  # Access the global_responses variable
+
     if request.method == 'POST':
         # Handle form submission
         user_responses = {}
         for subtopic in global_subtopics:
             # Get the user's response for each subtopic
             response = request.POST.get(subtopic, None)
-            print(f'type(resopnse): {type(response)}')
+            print(f'type(response): {type(response)}')
             if response is not None:
                 # Store the user's response in the dictionary
                 if response == 'Yes':
@@ -90,6 +115,9 @@ def choices(request, search_query):
                     user_responses[subtopic] = False
 
         print("User responses:", user_responses)
+
+        # Assign user_responses to global_responses
+        global_responses = user_responses
 
         return redirect(reverse('result'))
 
@@ -117,8 +145,9 @@ async def ask_grok(prompt):
     return response
   
 def result_view(request):
-    # asyncio.run(ask_grok(user_recommendation()))
-    usernames= ["elonmusk", "jinnacles"]
+    usernames = user_recommendation()
+    # usernames= ["elonmusk", "jinnacles", "CNBC"]
     userTweets = asyncio.run(givetweet(usernames))
+    print(f'userTweets: {userTweets}')
     return render(request, 'result.html', {'response': userTweets})
 
