@@ -5,20 +5,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="radio"] {
+            display: none;
+        }
+        input[type="radio"] + label {
+            display: inline-block;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            transition: all 0.3s ease;
+        }
+        input[type="radio"]:checked + label {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Choices</h1>
-    <p>Choose Yes or No for each subtopic:</p>
-    <form method="post">
-        {% csrf_token %}
-        {% for subtopic in subtopics %}
-            <label for="{{ subtopic }}">{{ subtopic }}</label><br>
-            <input type="radio" id="{{ subtopic }}_yes" name="{{ subtopic }}" value="Yes">
-            <label for="{{ subtopic }}_yes">Yes</label>
-            <input type="radio" id="{{ subtopic }}_no" name="{{ subtopic }}" value="No">
-            <label for="{{ subtopic }}_no">No</label><br>
-        {% endfor %}
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <h1>Choices</h1>
+        <p>Choose Yes or No for each subtopic:</p>
+        <form method="post">
+            {% csrf_token %}
+            {% for subtopic in subtopics %}
+                <label for="{{ subtopic }}">{{ subtopic }}</label><br>
+                <input type="radio" id="{{ subtopic }}_yes" name="{{ subtopic }}" value="Yes">
+                <label for="{{ subtopic }}_yes">Yes</label>
+                <input type="radio" id="{{ subtopic }}_no" name="{{ subtopic }}" value="No">
+                <label for="{{ subtopic }}_no">No</label><br>
+            {% endfor %}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>
