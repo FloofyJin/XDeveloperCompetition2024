@@ -2,3 +2,4 @@ xai-sdk
 requests
 django
 pandas
+django-environ
