@@ -16,7 +16,13 @@ def home(request):
     if request.method == 'POST':
         # Get the text input from the user
         search_query = request.POST.get('search_query', '')
-        prompt = "Give me a comma separated list of 5 most important subtopics related to the main topic of " + search_query
+        prompt = "This is a conversation between a human user and a highly intelligent AI. " \
+                 "The AI's name is Grok and it makes every effort to truthfully answer a user's questions. " \
+                 "It always responds politely but is not shy to use its vast knowledge in order to solve " \
+                 "even the most difficult problems. The conversation begins." \
+                 "Give me a comma separated list of 5 most important subtopics related to the " \
+                 "main topic of " + search_query + ". Only output the 5 subtopics and nothing else." \
+                                                   "Also do not number order the output."
         print("Asking grok for subtopics...")
         subtopics = asyncio.run(ask_grok(prompt))
         print("Topic: " + search_query)  # Topic
@@ -26,12 +32,14 @@ def home(request):
         subtopics_list = [subtopic.strip()[3:] for subtopic in subtopics.split('\n') if subtopic.strip()]
         if not subtopics_list or (len(subtopics_list) == 0):
             print("GROK ERROR: no subtopics returned")
-            return render(request, 'home.html')
+            # return render(request, 'home.html')
 
         # Update the global_subtopics list
         global_subtopics.clear()  # Clear the list before updating
         global_subtopics.extend(subtopics_list)
 
+        print(f'type(subtopics_list): {type(subtopics_list)}')
+        print(f'type(global_subtopics): {type(global_subtopics)}')
         print(f'global_subtopics: {global_subtopics}')
 
         return redirect('choices', search_query=subtopics_list)
