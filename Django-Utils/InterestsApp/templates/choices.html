@@ -2,56 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rate Subtopics</title>
-    <style>
-        /* Add your CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h1, p {
-            color: #333;
-        }
-        .subtopic {
-            margin-bottom: 10px;
-        }
-        .response-btn {
-            margin-right: 10px;
-        }
-    </style>
+    <title>Choices</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Rate the following subtopics:</h1>
-
-        <!-- Display search query -->
-        <p>Related subtopics: <strong>{{ search_query }}</strong></p>
-
-        <!-- Render subtopics with buttons -->
-        <form method="post">
-            {% csrf_token %}
-            {% for subtopic in subtopics %}
-            <div class="subtopic">
-                <span>{{ subtopic }}</span>
-                <button type="submit" class="response-btn" name="{{ subtopic }}" value="Yes">Yes</button>
-                <button type="submit" class="response-btn" name="{{ subtopic }}" value="No">No</button>
-            </div>
-            {% endfor %}
-        </form>
-
-        <!-- Back to Home link -->
-        <p><a href="{% url 'home' %}">Back to Home</a></p>
-    </div>
+    <h1>Choices</h1>
+    <p>Choose Yes or No for each subtopic:</p>
+    <form method="post">
+        {% csrf_token %}
+        {% for subtopic in subtopics %}
+            <label for="{{ subtopic }}">{{ subtopic }}</label><br>
+            <input type="radio" id="{{ subtopic }}_yes" name="{{ subtopic }}" value="Yes">
+            <label for="{{ subtopic }}_yes">Yes</label>
+            <input type="radio" id="{{ subtopic }}_no" name="{{ subtopic }}" value="No">
+            <label for="{{ subtopic }}_no">No</label><br>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
